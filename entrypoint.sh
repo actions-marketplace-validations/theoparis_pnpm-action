@@ -22,5 +22,6 @@ fi
 array=$(echo $1 | jq -r .[])
 for argument in "${array[@]}"
 do
+  echo "Running pnpm command: $argument"
   pnpm "$argument"
 done
