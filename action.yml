@@ -1,8 +1,9 @@
 # action.yml
 name: 'pnpm tasks'
 description: 'Run pnpm tasks from github actions'
-icon: 'package'
-color: 'red'
+branding:
+  icon: 'package'
+  color: 'red'
 inputs:
   args:  # id of input
     description: 'Arguments to pass to pnpm'
