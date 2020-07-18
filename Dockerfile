@@ -5,10 +5,6 @@ LABEL repository="http://github.com/creepinson/pnpm"
 LABEL homepage="http://github.com/creepinson/pnpm"
 LABEL maintainer="Theo Paris <theoparisdesigns@gmail.com>"
 
-LABEL com.github.actions.name="Pnpm tasks"
-LABEL com.github.actions.description="Wraps the pnpm CLI to enable common pnpm commands."
-LABEL com.github.actions.icon="package"
-LABEL com.github.actions.color="red"
 COPY LICENSE README.md THIRD_PARTY_NOTICE.md /
 
 RUN curl -L https://unpkg.com/@pnpm/self-installer | node
