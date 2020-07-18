@@ -23,8 +23,8 @@ array=($(echo $1 | jq .[]))
 echo "Found pnpm arguments: $array"
 echo " "
 
-for argument in "${array[@]}"
+for pnpmArgument in "${array[@]}"
 do
-  echo "Running pnpm command: $argument";
-  pnpm "$argument"
+  echo "Running pnpm command: $pnpmArgument";
+  pnpm "$pnpmArgument"
 done
