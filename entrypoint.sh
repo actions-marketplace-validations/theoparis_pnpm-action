@@ -18,8 +18,8 @@ if [ -n "$NPM_AUTH_TOKEN" ]; then
 
   chmod 0600 "$NPM_CONFIG_USERCONFIG"
 fi
-
-for argument in "${arguments[@]}"
+array=($(sed -n '/{/,/}/{s/[^:]*:[^"]*"\([^"]*\).*/\1/p;}' arguments))
+for argument in "${array[@]}"
 do
   pnpm "$argument"
 done

@@ -6,10 +6,10 @@ branding:
   color: 'red'
 inputs:
   arguments:
-    description: 'Command arguments as a list to pass to pnpm'
+    description: 'Arguments to pass to pnpm as a JSON array'
     required: true
     default:
-      - 'install'
+      - '["install"]'
 runs:
   using: 'docker'
   image: 'Dockerfile'
