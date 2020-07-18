@@ -19,9 +19,12 @@ if [ -n "$NPM_AUTH_TOKEN" ]; then
   chmod 0600 "$NPM_CONFIG_USERCONFIG"
 fi
 
-array=$(echo $1 | jq -r .[])
+array=($(echo $1 | jq .[]))
+echo "Found pnpm arguments: $array"
+echo " "
+
 for argument in "${array[@]}"
 do
-  echo "Running pnpm command: $argument"
+  echo "Running pnpm command: $argument";
   pnpm "$argument"
 done
