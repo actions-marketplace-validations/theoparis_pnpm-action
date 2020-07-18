@@ -5,12 +5,12 @@ branding:
   icon: 'package'
   color: 'red'
 inputs:
-  commands:
-    description: 'Comamnd arguments to pass to pnpm'
+  arguments:
+    description: 'Command arguments as a list to pass to pnpm'
     required: true
-    default: 
+    default:
       - 'install'
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  commands: ${{ inputs.commands }}
+  arguments: ${{ inputs.arguments }}
