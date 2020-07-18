@@ -1,0 +1,13 @@
+# action.yml
+name: 'pnpm tasks'
+description: 'Run pnpm tasks from github actions'
+inputs:
+  args:  # id of input
+    description: 'Arguments to pass to pnpm'
+    required: false
+    default: 'install'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.args }}
