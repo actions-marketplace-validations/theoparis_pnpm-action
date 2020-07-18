@@ -1,11 +1,11 @@
-FROM node:10
+FROM node:latest
 
 LABEL version="2.0.0"
-LABEL repository="http://github.com/znck/pnpm"
-LABEL homepage="http://github.com/znck/pnpm"
-LABEL maintainer="Rahul Kadyan <rahulkdn+pnpm@gmail.com>"
+LABEL repository="http://github.com/creepinson/pnpm"
+LABEL homepage="http://github.com/creepinson/pnpm"
+LABEL maintainer="Theo Paris <theoparisdesigns@gmail.com>"
 
-LABEL com.github.actions.name="GitHub Action for pnpm"
+LABEL com.github.actions.name="Pnpm tasks"
 LABEL com.github.actions.description="Wraps the pnpm CLI to enable common pnpm commands."
 LABEL com.github.actions.icon="package"
 LABEL com.github.actions.color="red"
