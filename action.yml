@@ -8,8 +8,7 @@ inputs:
   arguments:
     description: 'Arguments to pass to pnpm as a JSON array'
     required: true
-    default:
-      - '["install"]'
+    default: '["install"]'
 runs:
   using: 'docker'
   image: 'Dockerfile'
