@@ -18,12 +18,22 @@ if [ -n "$NPM_AUTH_TOKEN" ]; then
   chmod 0600 "$NPM_CONFIG_USERCONFIG"
 fi
 
-PNPM_ARGUMENTS="${PNPM_ARGUMENTS//\'}"
+PNPM_ARGUMENTS="${PNPM_ARGUMENTS//\'/}"
 array=($(echo "$PNPM_ARGUMENTS" | jq -r .[]))
 echo "Found pnpm arguments: $array"
 echo " "
 
+output=()
+
 for pnpmArgument in "${array[@]}"; do
   echo "Running pnpm command: $pnpmArgument"
   pnpm "$pnpmArgument"
+  output+=($?)
+done
+
+for i in "${output[@]}"; do
+  if [[ "0" != "$i" ]]; then
+    echo "An error occurred while running pnpm commands."
+    exit 1
+  fi
 done
