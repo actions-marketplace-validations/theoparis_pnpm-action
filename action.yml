@@ -1,16 +1,16 @@
 # action.yml
-name: 'pnpm tasks'
-description: 'Run pnpm tasks from github actions'
+name: "pnpm tasks"
+description: "Run pnpm tasks from github actions"
 branding:
-  icon: 'package'
-  color: 'red'
+    icon: "package"
+    color: "red"
 inputs:
-  arguments:
-    description: 'Arguments to pass to pnpm as a JSON array'
-    required: true
-    default: '["install"]'
+    arguments:
+        description: "Arguments to pass to pnpm as a JSON array"
+        required: true
+        default: '["install"]'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - PNPM_ARGUMENTS=${{ inputs.arguments }}
+    using: "docker"
+    image: "Dockerfile"
+    env:
+        PNPM_ARGUMENTS: ${{ inputs.arguments }}
