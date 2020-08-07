@@ -4,79 +4,37 @@ This Action for [pnpm](https://pnpm.js.org) enables arbitrary actions with the `
 
 ## Usage
 
-An example workflow to build, test, and publish an npm package to the default public registry follows:
+An example workflow to install the package and run the build script follows:
 
-```hcl
-workflow "Build, Test, and Publish" {
-  on = "push"
-  resolves = ["Publish"]
-}
+```yaml
+# This is a basic workflow to help you get started with Actions
 
-action "Build" {
-  uses = "actions/npm@master"
-  args = "install"
-}
+name: Build
 
-action "Test" {
-  needs = "Build"
-  uses = "actions/npm@master"
-  args = "test"
-}
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
 
-# Filter for a new tag
-action "Tag" {
-  needs = "Test"
-  uses = "actions/bin/filter@master"
-  args = "tag"
-}
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
 
-action "Publish" {
-  needs = "Tag"
-  uses = "actions/npm@master"
-  args = "publish --access public"
-  secrets = ["NPM_AUTH_TOKEN"]
-}
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Runs pnpm install and then builds it using tsc (typescript compiler)
+    - uses: creepinson/pnpm-action@master
+      with:
+        arguments: '["install", "build"]'
 ```
 
-### Secrets
-
-* `NPM_AUTH_TOKEN` - **Optional**. The token to use for authentication with the npm registry. Required for `npm publish` ([more info](https://docs.npmjs.com/getting-started/working_with_tokens))
-
-### Environment variables
-
-* `NPM_REGISTRY_URL` - **Optional**. To specify a registry to authenticate with. Defaults to `registry.npmjs.org`
-* `NPM_STRICT_SSL` - **Optional**. Specify false if your registry is insecure and uses the `http` protocol. Defaults to `true`
-* `NPM_CONFIG_USERCONFIG` - **Optional**. To specify a non-default per-user configuration file. Defaults to `$HOME/.npmrc` ([more info](https://docs.npmjs.com/misc/config#npmrc-files))
-
-#### Example
-
-To authenticate with, and publish to, a secure registry other than `registry.npmjs.org`:
-
-```hcl
-action "Publish" {
-  uses = "actions/npm@master"
-  args = "publish --access public"
-  env = {
-    NPM_REGISTRY_URL = "someOtherRegistry.someDomain.net"
-  }
-  secrets = ["NPM_AUTH_TOKEN"]
-}
-```
-
-
-To authenticate with, and publish to, an insecure registry other than `registry.npmjs.org`:
-
-```hcl
-action "Publish" {
-  uses = "actions/npm@master"
-  args = "publish --access public"
-  env = {
-    NPM_REGISTRY_URL = "my.local.registry"
-    NPM_STRICT_SSL = "false"
-  }
-  secrets = ["NPM_AUTH_TOKEN"]
-}
-```
 ## License
 
 The Dockerfile and associated scripts and documentation in this project are released under the [MIT License](LICENSE).
