@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+    test:
+        image: pnpm-action
+        volumes:
+            - /c/Users/thebo/Documents/docker-test/test-data:/home/container/app
+        environment:
+            - PNPM_ARGUMENTS='["install"]'

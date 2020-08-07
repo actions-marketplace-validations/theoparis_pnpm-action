@@ -8,23 +8,22 @@ if [ -n "$NPM_AUTH_TOKEN" ]; then
   NPM_REGISTRY_URL="${NPM_REGISTRY_URL-registry.npmjs.org}"
   NPM_STRICT_SSL="${NPM_STRICT_SSL-true}"
   NPM_REGISTRY_SCHEME="https"
-  if ! $NPM_STRICT_SSL
-  then
+  if ! $NPM_STRICT_SSL; then
     NPM_REGISTRY_SCHEME="http"
   fi
 
   # Allow registry.npmjs.org to be overridden with an environment variable
-  printf "//%s/:_authToken=%s\\nregistry=%s\\nstrict-ssl=%s" "$NPM_REGISTRY_URL" "$NPM_AUTH_TOKEN" "${NPM_REGISTRY_SCHEME}://$NPM_REGISTRY_URL" "${NPM_STRICT_SSL}" > "$NPM_CONFIG_USERCONFIG"
+  printf "//%s/:_authToken=%s\\nregistry=%s\\nstrict-ssl=%s" "$NPM_REGISTRY_URL" "$NPM_AUTH_TOKEN" "${NPM_REGISTRY_SCHEME}://$NPM_REGISTRY_URL" "${NPM_STRICT_SSL}" >"$NPM_CONFIG_USERCONFIG"
 
   chmod 0600 "$NPM_CONFIG_USERCONFIG"
 fi
 
-array=($(echo $1 | jq .[]))
+PNPM_ARGUMENTS="${PNPM_ARGUMENTS//\'}"
+array=($(echo "$PNPM_ARGUMENTS" | jq -r .[]))
 echo "Found pnpm arguments: $array"
 echo " "
 
-for pnpmArgument in "${array[@]}"
-do
-  echo "Running pnpm command: $pnpmArgument";
+for pnpmArgument in "${array[@]}"; do
+  echo "Running pnpm command: $pnpmArgument"
   pnpm "$pnpmArgument"
 done
