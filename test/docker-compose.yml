@@ -2,8 +2,9 @@ version: "3"
 
 services:
     test:
-        image: pnpm-action
+        build:
+            context: ..
         volumes:
-            - /c/Users/thebo/Documents/docker-test/test-data:/home/container/app
+            - ../../docker-test/test-data:/usr/src/app
         environment:
-            - PNPM_ARGUMENTS='["install"]'
+            PNPM_ARGUMENTS: '["start"]'
